@@ -1,0 +1,25 @@
+/* 间距 */
+
+:root {
+  --space-base: 16px;
+
+}
+
+/* 颜色 */
+
+:root {
+  --color-back-ground: #0b20dde5;
+  --color-border: #f0f0f0;
+}
+
+/* 盒模型 */
+
+:root {
+  --box-border-radius: 8px;
+}
+
+/* 其它 */
+
+:root {
+  --bg-opacity: 0.08;
+}

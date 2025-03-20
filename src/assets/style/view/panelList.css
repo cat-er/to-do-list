@@ -1,0 +1,13 @@
+.panel-list {
+  position: relative;
+}
+
+.panel-list .panel-list-main {
+  max-height: 600px;
+  padding: 0 var(--space-base);
+  overflow-y: auto;
+}
+
+.panel-list .panel-list-main> :not(:first-child) {
+  margin-top: var(--space-base);
+}

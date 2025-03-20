@@ -1,0 +1,11 @@
+.control-panel {
+  width: 150px;
+  max-height: 705px;
+  border-radius: var(--box-border-radius);
+  position: absolute;
+  top: 0;
+  right: calc(var(--space-base) * -1);
+  transform: translateX(100%);
+  overflow-x: hidden ;
+  overflow-y: auto ;
+}

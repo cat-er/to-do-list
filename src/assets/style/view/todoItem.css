@@ -1,0 +1,18 @@
+.todo-item {
+  border: 1px solid var(--color-border);
+  border-radius: var(--box-border-radius);
+  padding: var(--space-base);
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+}
+
+.todo-item .todo-item-left {
+  max-width: 90%;
+  display: flex;
+  align-items: start;
+}
+
+.todo-item .todo-item-left .todo-item-content {
+  margin-left: var(--space-base);
+}
