@@ -1,6 +1,6 @@
 import TodoItemList from "./components/panelList/TodoItemList";
 import ActionButtons from "./components/panelList/ActionButtons";
-import ControlPanel from "./components/panelList/controlPanel";
+import ControlPanel from "./components/panelList/ControlPanel";
 import { useAppDispatch } from "@/hooks/useRedux";
 import { initTodoData } from "@/store/todo";
 
