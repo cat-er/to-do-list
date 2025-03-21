@@ -1,0 +1,3 @@
+.action-buttons> :not(:first-child) {
+  margin-left: calc(var(--space-base)/2);
+}

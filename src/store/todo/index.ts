@@ -25,8 +25,13 @@ export const todoStore = createSlice({
   name: "todo",
   initialState,
   reducers: {
+    clearDeleteData: (state) => {
+      state.todoData = state.todoData.filter((item) => !item.isDelete);
+    },
     initTodoData: (state) => {
       state.todoData = getTodoDataFromStorage();
+      state.todoData = state.todoData.filter((item) => !item.isDelete);
+      setTodoDataToStorage(state.todoData);
     },
     addTodo: (state, action: PayloadAction<string>) => {
       state.todoData.push({
@@ -54,10 +59,25 @@ export const todoStore = createSlice({
     },
     markAllDone: (state, action: PayloadAction<boolean>) => {
       if (!state.todoData.length) return;
-      state.todoData = state.todoData.map((item) => {
-        item.isDone = action.payload;
-        return item;
-      });
+      // state.todoData = state.todoData.map((item) => {
+      //   item.isDone = action.payload;
+      //   return item;
+      // });
+      if (state.currentPanelType === PanelTypeEnum.TRASH) {
+        state.todoData = state.todoData.map((item) => {
+          if (item.isDelete) {
+            item.isDone = action.payload;
+          }
+          return item;
+        });
+      } else {
+        state.todoData = state.todoData.map((item) => {
+          if (!item.isDelete) {
+            item.isDone = action.payload;
+          }
+          return item;
+        });
+      }
       setTodoDataToStorage(state.todoData);
     },
     // 回收站撤销
@@ -69,6 +89,14 @@ export const todoStore = createSlice({
     },
     setCurrentPanelType: (state, action: PayloadAction<PanelTypeEnum>) => {
       state.currentPanelType = action.payload;
+    },
+    removeCheck: (state) => {
+      state.todoData = state.todoData.map((item) => {
+        if (item.isDone) {
+          item.isDelete = true;
+        }
+        return item;
+      });
     }
   }
 });
@@ -80,7 +108,8 @@ export const {
   toggleTodo,
   markAllDone,
   revocation,
-  setCurrentPanelType
+  setCurrentPanelType,
+  removeCheck
 } = todoStore.actions;
 
 export default todoStore.reducer;

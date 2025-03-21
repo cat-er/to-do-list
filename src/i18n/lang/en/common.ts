@@ -11,5 +11,6 @@ export default {
     active: "Active",
     completed: "Completed",
     trash: "Trash"
-  }
+  },
+  remove: "Remove"
 };

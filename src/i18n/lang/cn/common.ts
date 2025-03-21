@@ -11,5 +11,6 @@ export default {
     active: "进行中",
     completed: "已完成",
     trash: "回收站"
-  }
+  },
+  remove: "删除"
 };

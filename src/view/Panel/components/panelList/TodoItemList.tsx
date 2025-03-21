@@ -1,9 +1,8 @@
 import TodoItem from "./TodoItem";
-import { PanelTypeEnum } from "@/view/Panel/types/enums";
 import { useAppSelector, useAppDispatch } from "@/hooks/useRedux";
 import { removeTodo, revocation, toggleTodo } from "@/store/todo";
-import type { TodoData } from "@/store/todo/types";
 import { selectRenderList } from "@/store/todo/reselect";
+import { Empty } from 'antd';
 
 const TodoItemList = () => {
   const renderList = useAppSelector(selectRenderList);
@@ -24,16 +23,18 @@ const TodoItemList = () => {
     dispatch(revocation(id));
   };
 
-  return renderList.map((item) => (
-    <TodoItem
-      key={item.id}
-      todoData={item}
-      currentPanelType={currentPanelType}
-      onRemove={handleRemoveTodo}
-      onRevocation={handleRevocation}
-      onToggle={handleToggleTodo}
-    />
-  ));
+  return renderList.length
+    ? renderList.map((item) => (
+        <TodoItem
+          key={item.id}
+          todoData={item}
+          currentPanelType={currentPanelType}
+          onRemove={handleRemoveTodo}
+          onRevocation={handleRevocation}
+          onToggle={handleToggleTodo}
+        />
+      ))
+    : <Empty image={Empty.PRESENTED_IMAGE_SIMPLE}/>;
 };
 
 export default TodoItemList;
