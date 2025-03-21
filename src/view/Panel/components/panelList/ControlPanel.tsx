@@ -1,26 +1,34 @@
 import {} from "@ant-design/icons";
 import type { MenuProps } from "antd";
 import { Menu } from "antd";
+import { PanelTypeEnum } from "@/view/Panel/types/enums";
+import { useAppDispatch } from "@/hooks/useRedux";
+import { setCurrentPanelType } from "@/store/todo";
+
 type MenuItem = Required<MenuProps>["items"][number];
 
-const items: MenuItem[] = [
-  { key: "1", label: "全部" },
-  { key: "2", label: "进行中" },
-  { key: "3", label: "已完成" },
-  { key: "4", label: "回收站" },
-];
-
 const ControlPanel = () => {
-  const [current, setCurrent] = useState("1");
+  const { t } = useTranslation();
+
+  const [current, setCurrent] = useState("all");
+
+  const items: MenuItem[] = [
+    { key: PanelTypeEnum.ALL, label: t("control_panel.all") },
+    { key: PanelTypeEnum.ACTIVE, label: t("control_panel.active") },
+    { key: PanelTypeEnum.COMPLETED, label: t("control_panel.completed") },
+    { key: PanelTypeEnum.TRASH, label: t("control_panel.trash") }
+  ];
+
+  const dispatch = useAppDispatch();
 
   const onClick: MenuProps["onClick"] = (e) => {
-    console.log("click ", e);
     setCurrent(e.key);
+    dispatch(setCurrentPanelType(e.key as PanelTypeEnum));
   };
 
   return (
     <div className="control-panel">
-      <Menu onClick={onClick} defaultOpenKeys={["sub1"]} selectedKeys={[current]} items={items} />
+      <Menu selectedKeys={[current]} items={items} onClick={onClick} />
     </div>
   );
 };

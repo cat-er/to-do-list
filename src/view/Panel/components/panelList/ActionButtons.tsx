@@ -1,23 +1,19 @@
 import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
 import { markAllDone } from "@/store/todo";
 import { Button, Checkbox } from "antd";
+import MarkAllDone from "./components/actionButtons/MarkAllDone";
 
 const ActionButtons = () => {
   const { t } = useTranslation();
 
   const dispatch = useAppDispatch();
-  const markAllDoneHandle = () => {
-    dispatch(markAllDone());
-  };
+  // const markAllDoneHandle = () => {
+  //   dispatch(markAllDone());
+  // };
 
   const todoData = useAppSelector((state) => state.todoStore.todoData);
 
-  return (
-    <Button type="text">
-      全选
-      <Checkbox />
-    </Button>
-  );
+  return <MarkAllDone />;
 };
 
 export default ActionButtons;

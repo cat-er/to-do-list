@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { getId } from "@/utils/common";
 import { TodoStorageKeyEnum } from "@/types/enum/localStorage";
 import type { TodoData, TodoStoreState } from "./types";
+import { PanelTypeEnum } from "@/view/Panel/types/enums";
 
 // 辅助函数 todoData持久化
 const setTodoDataToStorage = (todoData: TodoData[]) => {
@@ -14,7 +15,9 @@ const getTodoDataFromStorage = (): TodoData[] => {
 
 // 初始化state
 const initialState: TodoStoreState = {
-  todoData: []
+  todoData: [],
+  // 控制面板状态
+  currentPanelType: PanelTypeEnum.ALL
 };
 
 // 定义store
@@ -29,12 +32,15 @@ export const todoStore = createSlice({
       state.todoData.push({
         id: getId(),
         text: action.payload,
-        isDone: false
+        isDone: false,
+        isDelete: false
       });
       setTodoDataToStorage(state.todoData);
     },
     removeTodo: (state, action: PayloadAction<number>) => {
-      state.todoData = state.todoData.filter((item) => item.id !== action.payload);
+      const index = state.todoData.findIndex((item) => item.id === action.payload);
+      if (index === -1) return;
+      state.todoData[index].isDelete = true;
       setTodoDataToStorage(state.todoData);
     },
     toggleTodo: (state, action: PayloadAction<number>) => {
@@ -46,17 +52,35 @@ export const todoStore = createSlice({
       });
       setTodoDataToStorage(state.todoData);
     },
-    markAllDone: (state) => {
+    markAllDone: (state, action: PayloadAction<boolean>) => {
       if (!state.todoData.length) return;
       state.todoData = state.todoData.map((item) => {
-        item.isDone = true;
+        item.isDone = action.payload;
         return item;
       });
       setTodoDataToStorage(state.todoData);
+    },
+    // 回收站撤销
+    revocation: (state, action: PayloadAction<number>) => {
+      const index = state.todoData.findIndex((item) => item.id === action.payload);
+      if (index === -1) return;
+      state.todoData[index].isDelete = false;
+      setTodoDataToStorage(state.todoData);
+    },
+    setCurrentPanelType: (state, action: PayloadAction<PanelTypeEnum>) => {
+      state.currentPanelType = action.payload;
     }
   }
 });
 
-export const { initTodoData, addTodo, removeTodo, toggleTodo, markAllDone } = todoStore.actions;
+export const {
+  initTodoData,
+  addTodo,
+  removeTodo,
+  toggleTodo,
+  markAllDone,
+  revocation,
+  setCurrentPanelType
+} = todoStore.actions;
 
 export default todoStore.reducer;
