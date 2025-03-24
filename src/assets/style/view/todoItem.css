@@ -5,6 +5,7 @@
   display: flex;
   justify-content: space-between;
   align-items: start;
+  animation: item-leave 3s;
 }
 
 .todo-item .todo-item-left {
@@ -15,4 +16,11 @@
 
 .todo-item .todo-item-left .todo-item-content {
   margin-left: var(--space-base);
+
+}
+
+.todo-item .todo-item-left .done {
+  text-decoration: line-through;
+  color: var(--color-secondary);
+  transition: all 0.3s ease;
 }

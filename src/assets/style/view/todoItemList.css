@@ -1,0 +1,30 @@
+@keyframes item-enter {
+  from {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0%);
+  }
+}
+
+
+
+.todo-item-list {
+  max-height: 600px;
+  padding: 0 var(--space-base);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.todo-item-list>* {
+  animation: item-enter 0.5s;
+}
+
+.todo-item-list> :not(:first-child) {
+  margin-top: var(--space-base);
+
+}
+

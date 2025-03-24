@@ -97,6 +97,7 @@ export const todoStore = createSlice({
         }
         return item;
       });
+      setTodoDataToStorage(state.todoData);
     }
   }
 });

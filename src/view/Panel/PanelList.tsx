@@ -20,11 +20,8 @@ const PanelList = () => {
   return (
     <div className="panel-list">
       <Card title={title} extra={<ActionButtons />}>
-        <div className="panel-list-main full">
-          <TodoItemList />
-        </div>
+        <TodoItemList />
       </Card>
-
       <ControlPanel />
     </div>
   );

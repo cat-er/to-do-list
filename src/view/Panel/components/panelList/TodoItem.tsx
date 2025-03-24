@@ -11,13 +11,10 @@ interface Props {
   onToggle: (id: number) => void;
 }
 
-const TodoItem: React.FC<Props> = ({
-  todoData,
-  onRemove,
-  onRevocation,
-  onToggle
-}) => {
+const TodoItem: React.FC<Props> = ({ todoData, onRemove, onRevocation, onToggle }) => {
   const { id, text, isDone, isDelete } = todoData;
+
+  const [leave, setLeave] = useState(false);
 
   const icon = isDelete ? <RollbackOutlined /> : <DeleteOutlined />;
 
@@ -27,11 +24,11 @@ const TodoItem: React.FC<Props> = ({
   };
 
   return (
-    <div className="todo-item full">
+    <div className="todo-item">
       <div className="todo-item-left">
         <Checkbox checked={isDone} onChange={() => onToggle(id)} />
 
-        <div className="todo-item-content">{text}</div>
+        <div className={`todo-item-content ${isDone ? "done" : ""}`}>{text}</div>
       </div>
 
       <Button type="text" danger={!isDelete} icon={icon} onClick={handleClick}></Button>
