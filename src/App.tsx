@@ -12,16 +12,12 @@ function App() {
   const [locale, setLocal] = useState<Locale>(zhCN);
   const { language } = useChangeLng();
 
-  const changeAntLng = () => {
+  useEffect(() => {
     if (language === I18nEnum.CN) {
       setLocal(zhCN);
     } else {
       setLocal(enUS);
     }
-  };
-
-  useEffect(() => {
-    changeAntLng()
   }, [language]);
 
   return (
